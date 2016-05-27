@@ -17,18 +17,16 @@ spec = describe "Ratel" $ do
                     let expected = Ratel.Error
                             { Ratel.errorBacktrace = Just
                                 [ Ratel.Trace
-                                    { Ratel.traceFile = Just "library/Ratel.hs"
-                                    , Ratel.traceMethod = Just "Ratel.?callStack"
-                                    , Ratel.traceNumber = Just "61:39"
-                                    }
-                                , Ratel.Trace
                                     { Ratel.traceFile = Just "test-suite/RatelSpec.hs"
                                     , Ratel.traceMethod = Just "RatelSpec.toError"
                                     , Ratel.traceNumber = Just "16:34"
                                     }
                                 ]
                             , Ratel.errorClass = Just "SomeException"
-                            , Ratel.errorMessage = Just "something went wrong"
+                            , Ratel.errorMessage = Just "\
+                                \something went wrong\n\
+                                \CallStack (from HasCallStack):\n\
+                                \  error, called at test-suite/RatelSpec.hs:13:26 in main:RatelSpec"
                             , Ratel.errorSource = Nothing
                             , Ratel.errorTags = Nothing
                             }
