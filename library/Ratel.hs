@@ -13,7 +13,6 @@ import qualified Data.Text as Text
 import qualified Data.Typeable as Typeable
 import qualified Data.UUID as UUID
 import qualified Data.Version as Version
-import qualified GHC.SrcLoc as SrcLoc
 import qualified GHC.Stack as Stack
 import qualified Network.HTTP.Client as Client
 import qualified Network.HTTP.Client.TLS as Client
@@ -70,16 +69,16 @@ toTraces :: Stack.CallStack -> [Trace]
 toTraces callStack = map (uncurry toTrace) (Stack.getCallStack callStack)
 
 
-toTrace :: String -> SrcLoc.SrcLoc -> Trace
+toTrace :: String -> Stack.SrcLoc -> Trace
 toTrace function srcLoc = Trace
-    { traceFile = Just (SrcLoc.srcLocFile srcLoc)
+    { traceFile = Just (Stack.srcLocFile srcLoc)
     , traceMethod = Just (List.intercalate "."
-        [ SrcLoc.srcLocModule srcLoc
+        [ Stack.srcLocModule srcLoc
         , function
         ])
     , traceNumber = Just (List.intercalate ":" (map show
-        [ SrcLoc.srcLocStartLine srcLoc
-        , SrcLoc.srcLocStartCol srcLoc
+        [ Stack.srcLocStartLine srcLoc
+        , Stack.srcLocStartCol srcLoc
         ]))
     }
 
