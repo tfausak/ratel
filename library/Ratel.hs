@@ -31,7 +31,7 @@ notify apiKey maybeManager initialPayload = do
             Nothing -> initialPayload { payloadNotifier = Just notifier }
             _ -> initialPayload
 
-    initialRequest <- Client.parseUrl "https://api.honeybadger.io/v1/notices"
+    initialRequest <- Client.parseUrlThrow "https://api.honeybadger.io/v1/notices"
     let body = Client.RequestBodyLBS (JSON.encode payload)
     let headers =
             [ (HTTP.hAccept, BS.pack "application/json")
