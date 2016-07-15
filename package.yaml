@@ -23,6 +23,7 @@ library:
   - Paths_ratel
   source-dirs: library
 license: MIT
+license-file: LICENSE.md
 maintainer: Taylor Fausak
 name: ratel
 synopsis: Notify Honeybadger about exceptions.
