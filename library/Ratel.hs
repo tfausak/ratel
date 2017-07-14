@@ -1,4 +1,5 @@
 {-# LANGUAGE ImplicitParams #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Ratel where
 
@@ -58,12 +59,17 @@ notify apiKey maybeManager initialPayload = do
 toError :: (?callStack :: Stack.CallStack) => Exception.SomeException -> Error
 toError exception = Error
     { errorBacktrace = Just (toTraces ?callStack)
-    , errorClass = Just (show (Typeable.typeOf exception))
+    , errorClass = Just $ concat [ show (Typeable.typeOf exception)
+                                 , ": "
+                                 , (take 30 . takeUntilNewline) (Exception.displayException exception)]
     , errorMessage = Just (Exception.displayException exception)
     , errorSource = Nothing
     , errorTags = Nothing
     }
 
+takeUntilNewline :: String -> String
+takeUntilNewline s =
+  Text.unpack $ fst $ Text.breakOn "\n" $ Text.pack s
 
 toTraces :: Stack.CallStack -> [Trace]
 toTraces callStack = map (uncurry toTrace) (Stack.getCallStack callStack)
