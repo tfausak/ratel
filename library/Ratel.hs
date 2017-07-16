@@ -55,21 +55,16 @@ notify apiKey maybeManager initialPayload = do
         Left message -> fail message
         Right notice -> return (unwrapNoticeUuid (noticeUuid notice))
 
-
-toError :: (?callStack :: Stack.CallStack) => Exception.SomeException -> Error
+toError :: (Exception.Exception exception, Stack.HasCallStack) => exception -> Error
 toError exception = Error
     { errorBacktrace = Just (toTraces ?callStack)
     , errorClass = Just $ concat [ show (Typeable.typeOf exception)
                                  , ": "
-                                 , (take 30 . takeUntilNewline) (Exception.displayException exception)]
+                                 , (take 30 . takeWhile (/= '\n')) (Exception.displayException exception)]
     , errorMessage = Just (Exception.displayException exception)
     , errorSource = Nothing
     , errorTags = Nothing
     }
-
-takeUntilNewline :: String -> String
-takeUntilNewline s =
-  Text.unpack $ fst $ Text.breakOn "\n" $ Text.pack s
 
 toTraces :: Stack.CallStack -> [Trace]
 toTraces callStack = map (uncurry toTrace) (Stack.getCallStack callStack)
