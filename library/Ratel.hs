@@ -55,7 +55,7 @@ notify apiKey maybeManager initialPayload = do
         Right notice -> return (unwrapNoticeUuid (noticeUuid notice))
 
 
-toError :: (?callStack :: Stack.CallStack) => Exception.SomeException -> Error
+toError :: (Exception.Exception exception, Stack.HasCallStack) => exception -> Error
 toError exception = Error
     { errorBacktrace = Just (toTraces ?callStack)
     , errorClass = Just (show (Typeable.typeOf exception))
