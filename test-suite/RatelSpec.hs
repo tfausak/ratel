@@ -1,6 +1,7 @@
 module RatelSpec (spec) where
 
 import qualified Control.Exception as Exception
+import qualified System.FilePath as FilePath
 import qualified Ratel
 import Test.Tasty.Hspec
 
@@ -13,20 +14,21 @@ spec = describe "Ratel" $ do
                     _ <- error "something went wrong"
                     True `shouldBe` False)
                 (\ exception -> do
+                    let file = FilePath.combine "test-suite" "RatelSpec.hs"
                     let actual = Ratel.toError (exception :: Exception.SomeException)
                     let expected = Ratel.Error
                             { Ratel.errorBacktrace = Just
                                 [ Ratel.Trace
-                                    { Ratel.traceFile = Just "test-suite/RatelSpec.hs"
+                                    { Ratel.traceFile = Just file
                                     , Ratel.traceMethod = Just "RatelSpec.toError"
-                                    , Ratel.traceNumber = Just "16:34"
+                                    , Ratel.traceNumber = Just "18:34"
                                     }
                                 ]
                             , Ratel.errorClass = Just "SomeException"
-                            , Ratel.errorMessage = Just "\
+                            , Ratel.errorMessage = Just ("\
                                 \something went wrong\n\
                                 \CallStack (from HasCallStack):\n\
-                                \  error, called at test-suite/RatelSpec.hs:13:26 in main:RatelSpec"
+                                \  error, called at " ++ file ++ ":14:26 in main:RatelSpec")
                             , Ratel.errorSource = Nothing
                             , Ratel.errorTags = Nothing
                             }
