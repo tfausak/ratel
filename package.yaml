@@ -10,7 +10,7 @@ github: tfausak/ratel
 library:
   dependencies:
   - aeson >=0.11 && <1.3
-  - base ==4.9.*
+  - base >=4.9 && <4.11
   - bytestring ==0.10.*
   - case-insensitive ==1.2.*
   - containers ==0.5.*
