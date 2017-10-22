@@ -37,4 +37,4 @@ tests:
     - tasty-hspec ==1.1.*
     main: Main.hs
     source-dirs: test-suite
-version: '0.3.5'
+version: '0.3.6'
