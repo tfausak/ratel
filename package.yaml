@@ -33,7 +33,7 @@ tests:
     - base
     - filepath ==1.4.*
     - ratel
-    - tasty ==0.11.*
+    - tasty >=0.11 && <0.13
     - tasty-hspec ==1.1.*
     main: Main.hs
     source-dirs: test-suite
