@@ -1,6 +1,21 @@
 {-# LANGUAGE ImplicitParams #-}
 
-module Ratel where
+module Ratel
+  ( notify
+  , toError
+  , toTraces
+  , toTrace
+  , ApiKey
+  , Payload(..)
+  , Error(..)
+  , Notifier(..)
+  , Request(..)
+  , Server(..)
+  , Trace(..)
+  , Project(..)
+  , Notice(..)
+  , NoticeUuid(..)
+  ) where
 
 import qualified Control.Exception as Exception
 import qualified Data.Aeson as JSON
@@ -49,8 +64,7 @@ notify apiKey maybeManager initialPayload = do
         Just manager -> return (Client.getHttpManager manager)
 
     response <- Client.httpLbs request manager
-    let maybeNotice = JSON.eitherDecode (Client.responseBody response)
-    case maybeNotice of
+    case JSON.eitherDecode (Client.responseBody response) of
         Left message -> fail message
         Right notice -> return (unwrapNoticeUuid (noticeUuid notice))
 
