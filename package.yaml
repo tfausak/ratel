@@ -38,7 +38,7 @@ tests:
   test:
     dependencies:
       filepath: '>= 1.4.1 && < 1.5'
-      hspec: '>= 2.2.3 && < 2.6'
+      hspec: '>= 2.2.3 && < 2.7'
       ratel: -any
     ghc-options:
       - -rtsopts
