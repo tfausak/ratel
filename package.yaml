@@ -1,5 +1,5 @@
 name: ratel
-version: 1.0.7
+version: 1.0.8
 
 category: Exceptions
 description: Ratel notifies Honeybadger about exceptions.
