@@ -13,7 +13,7 @@ main = Hspec.hspec . Hspec.describe "Ratel" $
           True `Hspec.shouldBe` False)
         (\ exception -> do
           let
-            file = FilePath.combine "tests" "Main.hs"
+            file = FilePath.joinPath ["src", "test", "Main.hs"]
             actual = Ratel.toError (exception :: Exception.SomeException)
             expected = Ratel.Error
               { Ratel.errorBacktrace = Just
