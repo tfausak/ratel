@@ -1,7 +1,7 @@
 cabal-version: >= 1.10
 
 name: ratel
-version: 1.0.13
+version: 1.0.14
 
 synopsis: Notify Honeybadger about exceptions.
 description: Ratel notifies Honeybadger about exceptions.
