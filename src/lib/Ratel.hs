@@ -1,4 +1,5 @@
 {-# LANGUAGE ImplicitParams #-}
+{-# LANGUAGE OverloadedStrings #-}
 
 module Ratel
   ( notify
@@ -24,7 +25,6 @@ import qualified Data.ByteString.Char8 as BS
 import qualified Data.CaseInsensitive as CI
 import qualified Data.List as List
 import qualified Data.Map as Map
-import qualified Data.Text as Text
 import qualified Data.Typeable as Typeable
 import qualified Data.UUID as UUID
 import qualified Data.Version as Version
@@ -109,10 +109,10 @@ data Payload = Payload
 
 instance JSON.ToJSON Payload where
     toJSON x = JSON.object
-        [ Text.pack "error" JSON..= payloadError x
-        , Text.pack "notifier" JSON..= payloadNotifier x
-        , Text.pack "request" JSON..= payloadRequest x
-        , Text.pack "server" JSON..= payloadServer x
+        [ "error" JSON..= payloadError x
+        , "notifier" JSON..= payloadNotifier x
+        , "request" JSON..= payloadRequest x
+        , "server" JSON..= payloadServer x
         ]
 
 
@@ -126,11 +126,11 @@ data Error = Error
 
 instance JSON.ToJSON Error where
     toJSON x = JSON.object
-        [ Text.pack "backtrace" JSON..= errorBacktrace x
-        , Text.pack "class" JSON..= errorClass x
-        , Text.pack "message" JSON..= errorMessage x
-        , Text.pack "source" JSON..= errorSource x
-        , Text.pack "tags" JSON..= errorTags x
+        [ "backtrace" JSON..= errorBacktrace x
+        , "class" JSON..= errorClass x
+        , "message" JSON..= errorMessage x
+        , "source" JSON..= errorSource x
+        , "tags" JSON..= errorTags x
         ]
 
 
@@ -142,9 +142,9 @@ data Notifier = Notifier
 
 instance JSON.ToJSON Notifier where
     toJSON x = JSON.object
-        [ Text.pack "name" JSON..= notifierName x
-        , Text.pack "url" JSON..= notifierUrl x
-        , Text.pack "version" JSON..= notifierVersion x
+        [ "name" JSON..= notifierName x
+        , "url" JSON..= notifierUrl x
+        , "version" JSON..= notifierVersion x
         ]
 
 
@@ -160,13 +160,13 @@ data Request = Request
 
 instance JSON.ToJSON Request where
     toJSON x = JSON.object
-        [ Text.pack "action" JSON..= requestAction x
-        , Text.pack "cgi_data" JSON..= requestCgiData x
-        , Text.pack "component" JSON..= requestComponent x
-        , Text.pack "context" JSON..= requestContext x
-        , Text.pack "params" JSON..= requestParams x
-        , Text.pack "session" JSON..= requestSession x
-        , Text.pack "url" JSON..= requestUrl x
+        [ "action" JSON..= requestAction x
+        , "cgi_data" JSON..= requestCgiData x
+        , "component" JSON..= requestComponent x
+        , "context" JSON..= requestContext x
+        , "params" JSON..= requestParams x
+        , "session" JSON..= requestSession x
+        , "url" JSON..= requestUrl x
         ]
 
 
@@ -178,9 +178,9 @@ data Server = Server
 
 instance JSON.ToJSON Server where
     toJSON x = JSON.object
-        [ Text.pack "environment_name" JSON..= serverEnvironmentName x
-        , Text.pack "hostname" JSON..= serverHostname x
-        , Text.pack "project_root" JSON..= serverProjectRoot x
+        [ "environment_name" JSON..= serverEnvironmentName x
+        , "hostname" JSON..= serverHostname x
+        , "project_root" JSON..= serverProjectRoot x
         ]
 
 
@@ -192,9 +192,9 @@ data Trace = Trace
 
 instance JSON.ToJSON Trace where
     toJSON x = JSON.object
-        [ Text.pack "file" JSON..= traceFile x
-        , Text.pack "method" JSON..= traceMethod x
-        , Text.pack "number" JSON..= traceNumber x
+        [ "file" JSON..= traceFile x
+        , "method" JSON..= traceMethod x
+        , "number" JSON..= traceNumber x
         ]
 
 
@@ -204,7 +204,7 @@ data Project = Project
 
 instance JSON.ToJSON Project where
     toJSON x = JSON.object
-        [ Text.pack "path" JSON..= projectPath x
+        [ "path" JSON..= projectPath x
         ]
 
 
@@ -215,7 +215,7 @@ data Notice = Notice
 instance JSON.FromJSON Notice where
     parseJSON json = case json of
         JSON.Object object -> do
-            uuid <- object JSON..: Text.pack "id"
+            uuid <- object JSON..: "id"
             return Notice
                 { noticeUuid = uuid
                 }
