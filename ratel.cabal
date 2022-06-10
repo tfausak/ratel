@@ -78,7 +78,7 @@ test-suite test
 
   build-depends:
     , filepath >= 1.4.2 && < 1.5
-    , hspec >= 2.7.6 && < 2.10
+    , hspec >= 2.7.6 && < 2.11
   hs-source-dirs: source/test-suite
   main-is: Main.hs
   type: exitcode-stdio-1.0
