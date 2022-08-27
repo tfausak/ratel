@@ -1,0 +1,14 @@
+packages: .
+
+-- https://github.com/vincenthz/hs-memory/pull/93
+source-repository-package
+  location: https://github.com/parsonsmatt/hs-memory
+  tag: 696383fbfb334c9247f9b406e1489b9ab294927d
+  type: git
+
+-- https://github.com/haskell-hvr/uuid/pull/70
+source-repository-package
+  location: https://github.com/mitchellwrosen/uuid
+  subdir: uuid
+  tag: e818dcde0eefa2bd49a22382ba37b9ac18ed59fc
+  type: git
