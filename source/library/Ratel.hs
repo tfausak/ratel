@@ -65,12 +65,12 @@ notify apiKey maybeManager initialPayload = do
 
   manager <- case maybeManager of
     Nothing -> Client.newManager Client.tlsManagerSettings
-    Just manager -> return (Client.getHttpManager manager)
+    Just manager -> pure (Client.getHttpManager manager)
 
   response <- Client.httpLbs request manager
   case JSON.eitherDecode (Client.responseBody response) of
     Left message -> fail message
-    Right notice -> return (unwrapNoticeUuid (noticeUuid notice))
+    Right notice -> pure (unwrapNoticeUuid (noticeUuid notice))
 
 toError ::
   (Exception.Exception exception, Stack.HasCallStack) => exception -> Error
@@ -224,7 +224,7 @@ instance JSON.FromJSON Notice where
   parseJSON json = case json of
     JSON.Object object -> do
       uuid <- object JSON..: "id"
-      return Notice {noticeUuid = uuid}
+      pure Notice {noticeUuid = uuid}
     _ -> JSON.typeMismatch "Notice" json
 
 newtype NoticeUuid = NoticeUuid
@@ -236,5 +236,5 @@ instance JSON.FromJSON NoticeUuid where
   parseJSON json = case json of
     JSON.String text -> case UUID.fromText text of
       Nothing -> JSON.typeMismatch "UUID" json
-      Just uuid -> return (NoticeUuid uuid)
+      Just uuid -> pure (NoticeUuid uuid)
     _ -> JSON.typeMismatch "UUID" json
