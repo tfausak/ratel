@@ -72,7 +72,7 @@ test-suite ratel-test-suite
 
   build-depends:
     , filepath >= 1.4.2 && < 1.5
-    , hspec >= 2.7.6 && < 2.11
+    , hspec >= 2.9.7 && < 2.12
   hs-source-dirs: source/test-suite
   main-is: Main.hs
   type: exitcode-stdio-1.0
