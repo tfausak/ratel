@@ -1,10 +1,4 @@
 packages: .
-
 allow-newer:
-  , cryptohash-md5:base
-
-  -- https://github.com/haskell-hvr/cryptohash-sha1/issues/18
-  , cryptohash-sha1:base
-
-  -- https://github.com/haskell/entropy/pull/79
-  , entropy:Cabal
+  -- https://github.com/haskell-hvr/uuid/issues/82
+  , uuid-types:template-haskell
