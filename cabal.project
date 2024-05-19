@@ -1,1 +1,4 @@
 packages: .
+allow-newer:
+  -- https://github.com/haskell-hvr/uuid/issues/82
+  , uuid-types:template-haskell
