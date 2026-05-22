@@ -51,7 +51,7 @@ library
   import: library
   autogen-modules: Paths_ratel
   build-depends:
-    aeson ^>=2.1.2.1 || ^>=2.2.2.0,
+    aeson ^>=2.1.2 || ^>=2.2.2 || ^>=2.3.0,
     bytestring ^>=0.12.0.2,
     case-insensitive ^>=1.2.1.0,
     containers ^>=0.7 || ^>=0.8,
