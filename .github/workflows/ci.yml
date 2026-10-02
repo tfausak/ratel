@@ -33,7 +33,7 @@ jobs:
         with:
           name: ratel-${{ github.sha }}-${{ matrix.os }}-${{ matrix.ghc }}
           path: artifact.tar
-      - run: cabal run -- ratel-test-suite --randomize --strict
+      - run: cabal run ratel-test-suite -- --randomize --strict
     strategy:
       matrix:
         include:
